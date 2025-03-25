@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <sys/wait.h>
+#include <string.h>
 
 void dothething1and2(void)
 {
@@ -53,13 +54,13 @@ void dothething3(void)
 {
   // Both processes have access to this pointer,
   // So we can implement `wait` without the syscall `wait`
-  bool *t = 1;
+  bool t = true;
   bool *wait = &t;
   pid_t rc = fork();
   if (rc == 0)
   {
     printf("hello!\n");
-    *wait = 0;
+    *wait = false;
   }
   else
   {
